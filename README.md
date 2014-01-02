@@ -10,15 +10,15 @@ Usage
 
     import net.ettinsmoor.Bingerator
 
-The following example
+Next, create a `Bingerator` object with your API key and then call the search function.  The following example
 
     val results1 = new Bingerator(key).SearchWeb("cowboy").take(150)
 
-returns 150 search results, where `key` is your Bing API key.  Note that `Bingerator` doesn't actually communicate with Bing until you read the collection.  By contrast,
+returns 150 search results, where `key` is your Bing API key.  Note that `Bingerator` does a minimal amount of communication with Bing (a single transaction in the smallest case) until you read enough results that needs to fetch more.  By contrast,
 
     val results2 = new Bingerator(key).SearchWeb("cowboy").take(150).toList
 
-immediately calls Bing and returns 150 results (because we called `toList` at the end), whereas the previous incantation will not call Bing until you read `results1`. `Bingerator`'s _laziness_ allows you to express a search result simply, without needing to worry about how big the collection might be until you use the results.  `Bingerator` also _caches_ results so that re-reading previous-retrieved results does not again retrieve new results.  This is important because Bing counts each and every transaction against your monthly quota, thus `Bingerator` saves you money.  Note that `Bingerator` is presently configured to retrieve the maximum number of results per transaction (50).
+immediately calls Bing and returns 150 results (because we called `toList` at the end), whereas the previous incantation will not call Bing until you read `results1`. `Bingerator`'s _laziness_ allows you to express a search result simply, without needing to worry about how big the collection should be until you use the results.  `Bingerator` also _caches_ results so that re-reading previous-retrieved results does not again retrieve new results.  This is important because Bing counts each and every transaction against your monthly quota, thus `Bingerator` saves you money.  Note that `Bingerator` is presently configured to retrieve the maximum number of results per transaction (50).
 
 #### I Don't Get It. Can You Show Me How to use Bingerator in a `for` loop?
 
@@ -88,7 +88,7 @@ Good question.  I initially intended to build this tool against Google's Custom 
 3. Opting to _pay_ to upgrade to Google Site Search, which lifts the number of transactions you can perform, [removes your ability to search the entire web](https://support.google.com/customsearch/answer/72326?hl=en).
 4. The old [Google Web Search API](https://developers.google.com/web-search/), which actually does do what I want, is deprecated.
 
-I could have worked around #1 by using the web API instead, which does come with acceptable documentation, but #2, #3, and #4 were dealbreakers for me.  Bing's only shortcoming is that the MSDN documentation is kind of a mess, since it refers to previous versions of the Bing API.  I eventually discovered [the following page](http://datamarket.azure.com/dataset/bing/search) which contains the correct documentation, but puzzlingly in Microsoft Word format.  You win some, you lose some, I suppose.
+I could have worked around #1 by using the web API instead, which does come with acceptable documentation, but #2, #3, and #4 were dealbreakers for me.  Bing's only shortcoming is that the MSDN documentation is kind of a mess, since it refers to previous versions of the Bing API.  I eventually discovered [the following page](http://datamarket.azure.com/dataset/bing/search) which contains the correct documentation, but puzzlingly, this documentation is in Microsoft Word format.  You win some, you lose some, I suppose.
 
 If Google changes #2, #3, and #4, I will happily add support for Google web search.
 
