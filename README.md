@@ -63,7 +63,7 @@ About the WebResult object
 | field name | type | description |
 | --- | --- | --- |
 | `description` | `String` | The short caption that Bing provides for a result. |
-| `display_url` | `String` | The same as `url`, except without the scheme name (e.g., "http") and "://" separator. |
+| `display_url` | `String` | The same as `url`, except without the scheme name (e.g., `http`) and `://` separator. |
 | `id` | `String` | The Bing [GUID](http://msdn.microsoft.com/en-us/library/system.guid%28v=vs.110%29.aspx) identifying the result. |
 | `title` | `String` | The name of the result. |
 | `url` | `String` | The URL of the search result. |
@@ -107,3 +107,8 @@ Notes
 -----
 
 `Bingerator` is designed to work with Scala, and it depends on the Scala `Stream` library.  `Stream` provides quite a bit more functionality than the Java `iterator`.  This may mean that you cannot use `Bingerator` with Java.  I honestly don't know.  If you figure, it out, [send me a note](http://barowy.net/contact/index.html), but I am otherwise uninterested in porting `Bingerator` to Java.
+
+Changelog
+---------
+
+| 0.1.0 | Initial release.
