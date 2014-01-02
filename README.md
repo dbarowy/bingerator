@@ -6,7 +6,11 @@ An iterator-like collection library for doing Bing queries in Scala.
 Usage
 -----
 
-`Bingerator` is very simple to use.  It works much like an ordinary collection in Scala.  The following example
+`Bingerator` is very simple to use.  It works much like an ordinary collection in Scala.  First, include Bingerator into your scope:
+
+    import net.ettinsmoor.Bingerator
+
+The following example
 
     val results1 = new Bingerator(key).SearchWeb("cowboy").take(150)
 
