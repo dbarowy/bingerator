@@ -62,7 +62,7 @@ You can [sign up here](http://datamarket.azure.com/dataset/bing/search).
 About the `WebResult` object
 --------------------------
 
-The return type of `WebSearch` is a `WebResult`.  `WebResult` has the following fields:
+The return type of `SearchWeb` is a `WebResult`.  `WebResult` has the following fields:
 
 | field name | type | description |
 | --- | --- | --- |
