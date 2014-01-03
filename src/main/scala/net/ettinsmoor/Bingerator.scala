@@ -27,7 +27,7 @@ class Bingerator(key: String, debug: Boolean) {
   }
 
   private def _execute_search(query: String, offset: Int) : Seq[WebResult] = {
-    if (debug) println("DEBUG: Getting results " + offset + " to " + (offset + _results_size) + ".")
+    if (debug) println("[debug]: Query: \"" + query + "\". Getting results " + offset + " to " + (offset + _results_size) + ".")
 
     // init accumulator
     val buf = new StringBuilder()
@@ -47,6 +47,9 @@ class Bingerator(key: String, debug: Boolean) {
     // close handle
     reader.close()
 
+    // debug
+    if (debug) println(buf.toString())
+
     // parse data
     val xmldata = XML.loadString(buf.toString())
 
@@ -56,7 +59,7 @@ class Bingerator(key: String, debug: Boolean) {
     // parse and return result objects
     val output: Seq[WebResult] = res.map ( resxml => new WebResult(resxml))
 
-    if (debug) println("DEBUG: Got " + output.size + " results.")
+    if (debug) println("[debug]: Query: \"" + query + "\". Got " + output.size + " results.")
 
     output
   }
