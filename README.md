@@ -1,12 +1,14 @@
 Bingerator
 ==========
 
-An iterator-like collection library for doing Bing queries in Scala.
+or "why the heck is it so hard to issue web queries in a program?"
+
+`Bingerator` is an easy-to-use library for doing Bing web queries in Scala.
 
 Usage
 -----
 
-`Bingerator` is very simple to use.  It works much like an ordinary collection in Scala.  First, include Bingerator into your scope:
+`Bingerator` is very simple to use.  It works much like an ordinary collection object in Scala.  First, include Bingerator into your scope:
 
     import net.ettinsmoor.Bingerator
 
@@ -14,7 +16,7 @@ Next, create a `Bingerator` object with your API key and then call the search fu
 
     val results1 = new Bingerator(key).SearchWeb("cowboy").take(150)
 
-returns 150 search results, where `key` is your Bing API key.  Note that `Bingerator` does a minimal amount of communication with Bing (a single transaction in the smallest case) until you read enough results that it needs to fetch more.  By contrast,
+returns 150 search results (a `Stream[WebResult]`), where `key` is your Bing API key.  Note that `Bingerator` does a minimal amount of communication with Bing (a single transaction in the smallest case) until you read enough results that it needs to fetch more.  By contrast,
 
     val results2 = new Bingerator(key).SearchWeb("cowboy").take(150).toList
 
