@@ -20,7 +20,7 @@ returns 150 search results (a `Stream[WebResult]`), where `key` is your Bing API
 
     val results2 = new Bingerator(key).SearchWeb("cowboy").take(150).toList
 
-immediately calls Bing and returns 150 results (because we called `toList` at the end), whereas the previous incantation will not call Bing until you read `results1`. `Bingerator`'s _laziness_ allows you to express a search result simply, without needing to worry about how big the collection should be until you use the results.  `Bingerator` also _caches_ results so that re-reading previous-retrieved results does not again retrieve new results.  This is important because Bing counts each and every transaction against your monthly quota.  `Bingerator` is presently configured to retrieve the maximum number of results per transaction (50) for maximum savings.
+_immediately_ calls Bing and returns 150 results (because we called `toList` at the end). The previous incantation will not call Bing until you read `results1`. `Bingerator`'s _laziness_ allows you to express a search result simply, without needing to worry about how big the collection should be until you use the results.  `Bingerator` also _caches_ results so that re-reading previous-retrieved results does not again retrieve new results.  This is important because Bing counts each and every transaction against your monthly quota.  `Bingerator` is presently configured to retrieve the maximum number of results per transaction (50) for maximum savings.
 
 #### I Don't Get It. Can You Show Me How to use Bingerator in a `for` loop?
 
