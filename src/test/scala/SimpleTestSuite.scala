@@ -21,18 +21,9 @@ class SimpleTestSuite extends FlatSpec with CancelAfterFailure {
     assert(key != null)
   }
 
-  "A Bingerator search request" should "return something." in {
+  "A Bingerator web search request" should "return something." in {
     val b = new Bingerator(key, true)
     assert(b.SearchWeb("cowboy").take(150).toList.size == 150)
-  }
-
-  "A Bingerator search request" should "return no more than the maximum number of results." in {
-    // A very unlikely match (returns 3 results at the time of writing)
-    val bronner = "\"Balanced Mineral Bouillon, Balanced Mineral Seasoning, Barley Malt Sweetener, Mineralized Corn Sesame Chips, Supermild Peppermint Oil Soap, Sal Suds, Ethanol, Esperanto\""
-    val b = new Bingerator(key, true)
-    assertResult(3) {
-      b.SearchWeb(bronner).take(2500).toList.size
-    }
   }
 
   "Bingerator" should "work in a for loop" in {
@@ -40,5 +31,10 @@ class SimpleTestSuite extends FlatSpec with CancelAfterFailure {
     for (result <- b.SearchWeb("cowboy").take(5)) {
       println("Result is: " + result.title)
     }
+  }
+
+  "A Bingerator image search request" should "return something." in {
+    val b = new Bingerator(key, true)
+    assert(b.SearchImages("cowboy").take(75).toList.size == 75)
   }
 }
