@@ -142,7 +142,7 @@ Note that the test suite requires the presence of a file called `BingAccount.pro
 
     key = 34hKZ87Aab2JJj8abz10MM0jh2sIU806fFXXkacveT4
 
-_Be sure not to add `BingAccount.properties` to your git projects, otherwise others will know your secret key!_
+_Be careful not to add `BingAccount.properties` to your git projects, otherwise others will know your secret key!_
 
 If you find a bug in `Bingerator`, and you're adept at writing ScalaTest tests, you will maximize your chances of me fixing the problem if your GitHub issue includes a new test.
 
@@ -151,10 +151,12 @@ Notes
 
 `Bingerator` is designed to work with Scala, and it depends on the Scala `Stream` library.  `Stream` provides quite a bit more functionality than the Java `iterator`.  This may mean that you cannot use `Bingerator` with Java.  I honestly don't know.  If you figure, it out, [send me a note](http://barowy.net/contact/index.html), but I am otherwise uninterested in porting `Bingerator` to Java.
 
-Changelog
----------
+Change Log
+----------
 
 | version | changes |
 | --- | --- |
-| 0.1.0 | Initial release. |
+| 0.2.1 | Added helper methods to allow easy downloading/saving of Bing image searches. |
+| 0.2.0 | Added support for Bing image searches. |
 | 0.1.1 | README updates. |
+| 0.1.0 | Initial release. |
