@@ -37,4 +37,13 @@ class SimpleTestSuite extends FlatSpec with CancelAfterFailure {
     val b = new Bingerator(key, true)
     assert(b.SearchImages("cowboy").take(75).toList.size == 75)
   }
+
+  "Bingerator image searches" should "allow downloading the image to a file" in {
+    val b = new Bingerator(key, true)
+    val results = b.SearchImages("Mulder and Scully").take(1).toList
+    assert(results.size == 1)
+    val f = results.head.saveImageFile("XFiles")
+    assert(f.exists && f.isFile)
+    f.delete()
+  }
 }

@@ -3,7 +3,7 @@ Bingerator
 
 or "why the heck is it so hard to issue web queries in a program?"
 
-`Bingerator` is an easy-to-use library for doing Bing web queries in Scala.
+`Bingerator` is an easy-to-use library for doing Bing web and image queries in Scala.
 
 Downloading
 -----------
@@ -99,6 +99,13 @@ The return type of `SearchImage` is an `ImageResult`.  `ImageResult` has the fol
 | `source_url` | `String` | The URL of the page that hosts the image file. |
 | `title` | `String` | The name of the result. |
 | `width` | `int` | The width of the image, in pixels. |
+
+`ImageResult` also has some helper methods to make it easy to work with image data. Note that `getImage` and `saveImageFile` share an image data cache.
+
+| method name | arguments | return type | description |
+| --- | --- | --- |
+| `getImage` | none | `java.awt.image.BufferedImage` | This method will download the file and return it as a `BufferedImage`. Note that repeated calls to `getImage` return the same, cached image data. |
+| `saveImageFile` | an output file base name | `java.io.File` | This method will save the file using the user-supplied base name and return a `java.io.File` object.  The file extension (e.g., ".jpg") is determined dynamically, based on the image's `content_type`. Note that `saveImageFile` will also download the file if needed, caching the image data as does `getImage`. |
 
 FAQ
 ---
