@@ -19,7 +19,7 @@ case class ImageResult(result_xml: Node) extends SearchResult {
   val source_url = (result_xml \ "content" \ "properties" \ "SourceUrl").text
   val display_url = (result_xml \ "content" \ "properties" \ "DisplayUrl").text
   val content_type = ContentType.get((result_xml \ "content" \ "properties" \ "ContentType").text)
-  val file_size = (result_xml \ "content" \ "properties" \ "FileSize").text
-  val height = (result_xml \ "content" \ "properties" \ "Height").text
-  val width = (result_xml \ "content" \ "properties" \ "Width").text
+  val file_size = (result_xml \ "content" \ "properties" \ "FileSize").text.toLong
+  val height = (result_xml \ "content" \ "properties" \ "Height").text.toInt
+  val width = (result_xml \ "content" \ "properties" \ "Width").text.toInt
 }

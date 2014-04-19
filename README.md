@@ -5,6 +5,13 @@ or "why the heck is it so hard to issue web queries in a program?"
 
 `Bingerator` is an easy-to-use library for doing Bing web queries in Scala.
 
+Downloading
+-----------
+
+The easiest way to get Bingerator is [as a binary release](https://github.com/dbarowy/bingerator/releases/tag/v0.2.0).  Please be sure to have an up-to-date version of Scala (v.2.10.4).
+
+If you need a differently-configured build, I suggest that you [checkout a copy of the source](#source) and [see the build instructions](#building).
+
 Usage
 -----
 
@@ -34,14 +41,14 @@ Sure.
 
 Note that if you don't specify the number of search results using `take`, `Bingerator` will return up to 5000 results (the present cap).  This is probably not what you want, since you have to pay for all 100 of those transactions. Only `take` what you need!
 
-Getting the Source
+Getting the Source <a name="source"></a>
 ------------------
 
 There is nothing special here.  I.e.,
 
     git clone git@github.com:dbarowy/bingerator.git
 
-Building the Library
+Building the Library <a name="building"></a>
 --------------------
 
 `Bingerator` uses Scala's [Simple Build Tool](http://www.scala-sbt.org/).  Please make sure that you [have SBT installed](http://www.scala-sbt.org/release/docs/Getting-Started/Setup.html) prior to following these directions.  Note that in keeping with my arbitary and yet highly-refined sense of aesthetics, `Bingerator` has no other dependencies (well, other than Scala and Java, of course).
@@ -53,6 +60,8 @@ To build a JAR that you can import into your Java/Scala classpath, `cd` into the
 On my machine, SBT creates the following JAR:
 
     bingerator/target/scala-2.10/bingerator_2.10-0.1.jar
+    
+If you need to modify the build, e.g., to change the required Scala version, see the `build.sbt` buildfile.  Please note that if you change the Scala version, I make no guarantees that `Bingerator` will continue to function properly.
 
 Note on Bing Account Keys
 -------------------------
@@ -61,7 +70,7 @@ Bing requires that users of the search API have Bing developer accounts.  You wi
 
 You can [sign up here](http://datamarket.azure.com/dataset/bing/search).
 
-About the `WebResult` object
+`WebResult` object
 --------------------------
 
 The return type of `SearchWeb` is a `WebResult`.  `WebResult` has the following fields:
@@ -74,12 +83,33 @@ The return type of `SearchWeb` is a `WebResult`.  `WebResult` has the following 
 | `title` | `String` | The name of the result. |
 | `url` | `String` | The URL of the search result. |
 
+`ImageResult` object
+--------------------------
+
+The return type of `SearchImage` is an `ImageResult`.  `ImageResult` has the following fields:
+
+| field name | type | description |
+| --- | --- | --- |
+| `content_type` | `ContentType` | A ContentType case class. |
+| `display_url` | `String` | The same as `media_url`, except without the scheme name (e.g., `http`) and `://` separator. |
+| `file_size` | `long` | The size, in bytes, of the file located at `media_url` |
+| `height` | `int` | The height of the image, in pixels. |
+| `id` | `String` | The Bing [GUID](http://msdn.microsoft.com/en-us/library/system.guid%28v=vs.110%29.aspx) identifying the result. |
+| `media_url` | `String` | The direct URL of the image file itself. |
+| `source_url` | `String` | The URL of the page that hosts the image file. |
+| `title` | `String` | The name of the result. |
+| `width` | `int` | The width of the image, in pixels. |
+
 FAQ
 ---
 
-#### Why Don't You Support Other Bing SourceTypes, like Images?
+#### Why Don't You Support Other Bing SourceTypes, like News?
 
 I plan to.  I'll add them to this library as I need them.
+
+#### Why Can't I Specify Bing Search Options Like Image Size?
+
+I'm busy.  Patches are always welcome, by the way.
 
 #### Why Don't You Support Google Web Search?
 
