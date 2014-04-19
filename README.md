@@ -8,7 +8,7 @@ or "why the heck is it so hard to issue web queries in a program?"
 Downloading
 -----------
 
-The easiest way to get Bingerator is [as a binary release](https://github.com/dbarowy/bingerator/releases/tag/v0.2.0).  Please be sure to have an up-to-date version of Scala (v.2.10.4).
+The easiest way to get Bingerator is [as a binary release](https://github.com/dbarowy/bingerator/releases/tag/v0.2.1).  Please be sure to have an up-to-date version of Scala (v.2.10.4).
 
 If you need a differently-configured build, I suggest that you [checkout a copy of the source](#source) and [see the build instructions](#building).
 
