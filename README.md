@@ -59,7 +59,7 @@ To build a JAR that you can import into your Java/Scala classpath, `cd` into the
 
 On my machine, SBT creates the following JAR:
 
-    bingerator/target/scala-2.10/bingerator_2.10-0.1.jar
+    bingerator/target/scala-2.10/bingerator_2.10-0.2.0.jar
     
 If you need to modify the build, e.g., to change the required Scala version, see the `build.sbt` buildfile.  Please note that if you change the Scala version, I make no guarantees that `Bingerator` will continue to function properly.
 
