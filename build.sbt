@@ -1,12 +1,26 @@
+import SonatypeKeys._
+
+sonatypeSettings
+
 name := "Bingerator"
 
-version := "0.2.1"
+version := "0.2.2"
 
 scalaVersion := "2.10.4"
 
 exportJars := true
 
+// Dependencies
+libraryDependencies += "org.scalatest" % "scalatest_2.10" % "2.0" % "test"
+
+// Maven packaging information:
+organization := "net.ettinsmoor"
+
+profileName := "net.ettinsmoor"
+
 publishMavenStyle := true
+
+pomIncludeRepository := { _ => false }
 
 publishTo := {
   val nexus = "https://oss.sonatype.org/"
@@ -24,11 +38,10 @@ pomExtra := (
     <license>
       <name>BSD-style</name>
       <url>http://opensource.org/licenses/bsd-license.php</url>
-      <distribution>repo</distribution>
     </license>
   </licenses>
   <scm>
-    <url>git@github.com:dbarowy/bingerator.git</url>
+    <url>scm:git:git@github.com:dbarowy/bingerator.git</url>
     <connection>scm:git:git@github.com:dbarowy/bingerator.git</connection>
   </scm>
   <developers>
@@ -38,5 +51,3 @@ pomExtra := (
       <url>http://people.cs.umass.edu/~dbarowy</url>
     </developer>
   </developers>)
-
-libraryDependencies += "org.scalatest" % "scalatest_2.10" % "2.0" % "test"
