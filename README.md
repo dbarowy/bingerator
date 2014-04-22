@@ -8,9 +8,13 @@ or "why the heck is it so hard to issue web queries in a program?"
 Downloading
 -----------
 
-The easiest way to get Bingerator is [as a binary release](https://github.com/dbarowy/bingerator/releases/tag/0.2.1).  Please be sure to have an up-to-date version of Scala (v.2.10.4).
+The easiest way to get Bingerator is via Maven. If you're using SBT, you can simply add the following to your `build.sbt`:
 
-If you need a differently-configured build, I suggest that you [checkout a copy of the source](#source) and [see the build instructions](#building).
+    libraryDependencies += "net.ettinsmoor" % "bingerator_2.10" % "0.2.2"
+
+A slightly more cumbersome way to get Bingerator, popular among homesteaders, is [as a binary release](https://github.com/dbarowy/bingerator/releases/tag/0.2.2).  Please be sure to have an up-to-date version of Scala (v.2.10.4).
+
+If you need a differently-configured build, or if binary releases bounce off of your tinfoil hat, I suggest that you [checkout a copy of the source](#source) and [see the build instructions](#building).
 
 Usage
 -----
@@ -33,13 +37,13 @@ _immediately_ calls Bing and returns 150 results (because we called `toList` at 
 
 Sure.
 
-    val b = new Bingerator(key, true)
-    val result = b.SearchWeb("cowboy").take(5)
-    for (r <- result) {
-      println("Result is: " + r.title)
+    val b = new Bingerator(key)
+    val results = b.SearchWeb("The Lone Gunmen").take(5)
+    for (r <- results) {
+      println("Result is: " + r.url)
     }
 
-Note that if you don't specify the number of search results using `take`, `Bingerator` will return up to 5000 results (the present cap).  This is probably not what you want, since you have to pay for all 100 of those transactions. Only `take` what you need!
+Note that if you don't specify the number of search results using `take`, `Bingerator` will return up to 5000 results (the current cap).  This is probably not what you want, since you have to pay for all 100 of those transactions. Only `take` what you need!
 
 Getting the Source <a name="source"></a>
 ------------------
@@ -156,6 +160,7 @@ Change Log
 
 | version | changes |
 | --- | --- |
+| 0.2.2 | Now available via Maven. No real changes. |
 | 0.2.1 | Added helper methods to allow easy downloading/saving of Bing image searches. |
 | 0.2.0 | Added support for Bing image searches. |
 | 0.1.1 | README updates. |
