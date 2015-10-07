@@ -10,7 +10,7 @@ Downloading
 
 The easiest way to get Bingerator is via Maven. If you're using SBT, you can simply add the following to your `build.sbt`:
 
-    libraryDependencies += "net.ettinsmoor" %% "bingerator" % "0.2.2"
+    libraryDependencies += "net.ettinsmoor" %% "bingerator" % "0.2.3"
 
 If you need a differently-configured build, or if binary releases bounce off of your tinfoil hat, I suggest that you [checkout a copy of the source](#source) and [see the build instructions](#building).
 
@@ -158,6 +158,7 @@ Change Log
 
 | version | changes |
 | --- | --- |
+| 0.2.3 | Support for Scala 2.11, otherwise no changes. |
 | 0.2.2 | Now available via Maven. No real changes. |
 | 0.2.1 | Added helper methods to allow easy downloading/saving of Bing image searches. |
 | 0.2.0 | Added support for Bing image searches. |
