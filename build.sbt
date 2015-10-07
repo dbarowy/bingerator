@@ -1,22 +1,40 @@
-import SonatypeKeys._
-
-sonatypeSettings
-
 name := "Bingerator"
 
-version := "0.2.2"
+version := "0.2.3"
 
-scalaVersion := "2.10.4"
+scalaVersion := "2.11.7"
 
 exportJars := true
 
-// Dependencies
-libraryDependencies += "org.scalatest" % "scalatest_2.10" % "2.0" % "test"
+// SUPPORTED SCALA VERSIONS
+crossScalaVersions := Seq("2.10.6", "2.11.7")
 
-// Maven packaging information:
+// DEPENDENCIES
+libraryDependencies += "org.scalatest" %%  "scalatest" % "2.2.4" % "test"
+
+// add scala-xml if scala major version >= 11
+libraryDependencies := {
+  CrossVersion.partialVersion(scalaVersion.value) match {
+    case Some((2, scalaMajor)) if scalaMajor >= 11 =>
+      libraryDependencies.value :+ "org.scala-lang.modules" %% "scala-xml" % "1.0.2"
+    case _ =>
+      libraryDependencies.value
+  }
+}
+
+// TESTING
+concurrentRestrictions in Global := Seq(
+  Tags.limit(Tags.Test, 1)
+)
+
+parallelExecution in Test := false
+
+// MAVEN
 organization := "net.ettinsmoor"
 
-profileName := "net.ettinsmoor"
+licenses := Seq("BSD-style" -> url("http://opensource.org/licenses/bsd-license"))
+
+homepage := Some(url("https://github.com/dbarowy/bingerator"))
 
 publishMavenStyle := true
 
@@ -33,13 +51,6 @@ publishTo := {
 publishArtifact in Test := false
 
 pomExtra := (
-  <url>https://github.com/dbarowy/bingerator</url>
-  <licenses>
-    <license>
-      <name>BSD-style</name>
-      <url>http://opensource.org/licenses/bsd-license.php</url>
-    </license>
-  </licenses>
   <scm>
     <url>scm:git:git@github.com:dbarowy/bingerator.git</url>
     <connection>scm:git:git@github.com:dbarowy/bingerator.git</connection>

@@ -10,16 +10,14 @@ Downloading
 
 The easiest way to get Bingerator is via Maven. If you're using SBT, you can simply add the following to your `build.sbt`:
 
-    libraryDependencies += "net.ettinsmoor" % "bingerator_2.10" % "0.2.2"
-
-A slightly more cumbersome way to get Bingerator, popular among homesteaders, is [as a binary release](https://github.com/dbarowy/bingerator/releases/tag/0.2.2).  Please be sure to have an up-to-date version of Scala (v.2.10.4).
+    libraryDependencies += "net.ettinsmoor" %% "bingerator" % "0.2.2"
 
 If you need a differently-configured build, or if binary releases bounce off of your tinfoil hat, I suggest that you [checkout a copy of the source](#source) and [see the build instructions](#building).
 
 Usage
 -----
 
-`Bingerator` is very simple to use.  It works much like an ordinary collection object in Scala.  First, include Bingerator into your scope:
+`Bingerator` is very simple to use.  It works much like an ordinary collection object in Scala.  Specifically, a `Stream` collection.  First, include Bingerator into your scope:
 
     import net.ettinsmoor.Bingerator
 
@@ -27,11 +25,11 @@ Next, create a `Bingerator` object with your API key and then call the search fu
 
     val results1 = new Bingerator(key).SearchWeb("cowboy").take(150)
 
-returns 150 search results (a `Stream[WebResult]`), where `key` is your Bing API key.  Note that `Bingerator` does a minimal amount of communication with Bing (a single transaction in the smallest case) until you read enough results that it needs to fetch more.  By contrast,
+returns 150 search results (a `Stream[WebResult]`), where `key` is your Bing API key.  Note that `Bingerator` performs the minimum amount of communication with Bing (a single transaction in the smallest case) required to satisfy your query because `Stream` is _lazy_.  By contrast,
 
     val results2 = new Bingerator(key).SearchWeb("cowboy").take(150).toList
 
-_immediately_ calls Bing and returns 150 results (because we called `toList` at the end). The previous incantation will not call Bing until you read `results1`. `Bingerator`'s _laziness_ allows you to express a search result simply, without needing to worry about how big the collection should be until you use the results.  `Bingerator` also _caches_ results so that re-reading previous-retrieved results does not again retrieve new results.  This is important because Bing counts each and every transaction against your monthly quota.  `Bingerator` is presently configured to retrieve the maximum number of results per transaction (50) for maximum savings.
+_immediately_ (i.e., "_eagerly_") calls Bing and returns 150 results (because we called `toList` at the end). The previous incantation will not call Bing until you read `results1`. `Bingerator`'s _laziness_ allows you to express a search result simply, without needing to worry about how big the collection should be until you use the results.  `Bingerator` also _caches_ results so that re-reading previous-retrieved results does not again retrieve new results.  This is important because Bing counts each and every transaction against your monthly quota.  `Bingerator` is presently configured to retrieve the maximum number of results per transaction (50) for maximum savings.
 
 #### I Don't Get It. Can You Show Me How to use Bingerator in a `for` loop?
 
@@ -55,7 +53,7 @@ There is nothing special here.  I.e.,
 Building the Library <a name="building"></a>
 --------------------
 
-`Bingerator` uses Scala's [Simple Build Tool](http://www.scala-sbt.org/).  Please make sure that you [have SBT installed](http://www.scala-sbt.org/release/docs/Getting-Started/Setup.html) prior to following these directions.  Note that in keeping with my arbitary and yet highly-refined sense of aesthetics, `Bingerator` has no other dependencies (well, other than Scala and Java, of course).
+`Bingerator` uses Scala's [Simple Build Tool](http://www.scala-sbt.org/).  Please make sure that you [have SBT installed](http://www.scala-sbt.org/release/docs/Getting-Started/Setup.html) prior to following these directions.  `Bingerator` has no dependencies other than Scala and Java.
 
 To build a JAR that you can import into your Java/Scala classpath, `cd` into the `bingerator` folder and type
 
@@ -65,7 +63,7 @@ On my machine, SBT creates the following JAR:
 
     bingerator/target/scala-2.10/bingerator_2.10-0.2.0.jar
     
-If you need to modify the build, e.g., to change the required Scala version, see the `build.sbt` buildfile.  Please note that if you change the Scala version, I make no guarantees that `Bingerator` will continue to function properly.
+If you need to modify the build, e.g., to change the required Scala version, see the `build.sbt` buildfile.
 
 Note on Bing Account Keys
 -------------------------
@@ -122,11 +120,11 @@ I plan to.  I'll add them to this library as I need them.
 
 I'm busy.  Patches are always welcome, by the way.
 
-#### Why Don't You Support Google Web Search?
+#### Why Bing?  Why Not Google Web Search?
 
 Good question.  I initially intended to build this tool against Google's Custom Search API.  However, I eventually opted for Bing for the following reasons:
 
-1. Google's SDK is very poorly documented.
+1. Google's SDK is poorly documented.
 2. Google Custom Search can search the entire web ([really](https://support.google.com/customsearch/answer/1210656?hl=en)!), but is extremely limited: only 100 queries per day.
 3. Opting to _pay_ to upgrade to Google Site Search, which lifts the number of transactions you can perform, [removes your ability to search the entire web](https://support.google.com/customsearch/answer/72326?hl=en).
 4. The old [Google Web Search API](https://developers.google.com/web-search/), which actually does do what I want, is deprecated.
@@ -153,7 +151,7 @@ If you find a bug in `Bingerator`, and you're adept at writing ScalaTest tests, 
 Notes
 -----
 
-`Bingerator` is designed to work with Scala, and it depends on the Scala `Stream` library.  `Stream` provides quite a bit more functionality than the Java `iterator`.  This may mean that you cannot use `Bingerator` with Java.  I honestly don't know.  If you figure, it out, [send me a note](http://barowy.net/contact/index.html), but I am otherwise uninterested in porting `Bingerator` to Java.
+`Bingerator` is designed to work with Scala, and it depends on the Scala `Stream` library.  `Stream` provides quite a bit more functionality than the Java `iterator`.  This may mean that you cannot use `Bingerator` with Java.  I honestly don't know.  If you figure, it out, [send me a note](http://people.cs.umass.edu/~dbarowy), but I am otherwise uninterested in porting `Bingerator` to Java.
 
 Change Log
 ----------
