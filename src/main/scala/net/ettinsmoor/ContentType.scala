@@ -6,7 +6,7 @@ case class ImagePNG() extends ContentType
 case class ImageGIF() extends ContentType
 
 object ContentType {
-  def isGIF(ct_str: String) = ct_str.matches("^image/gif$")
+  def isGIF(ct_str: String) = ct_str.matches("^image/(animated)?gif$")
   def isJPEG(ct_str: String) = ct_str.matches("^image/jpe?g$")
   def isPNG(ct_str: String) = ct_str.matches("^image/png$")
 
@@ -14,6 +14,6 @@ object ContentType {
     case gif if isGIF(gif) => ImageGIF
     case jpeg if isJPEG(jpeg) => ImageJPEG
     case png if isPNG(png) => ImagePNG
-    case _ => throw new NotImplementedError("Unknown content type.")
+    case _ => throw new NotImplementedError("Unknown content type: " + ct_str)
   }
 }

@@ -28,28 +28,37 @@ case class ImageResult(result_xml: Node) extends SearchResult {
   val height = (result_xml \ "content" \ "properties" \ "Height").text.toInt
   val width = (result_xml \ "content" \ "properties" \ "Width").text.toInt
 
-  private lazy val _imagedata = ImageIO.read(new URL(media_url))
+  private lazy val _imagedata : Option[BufferedImage] = 
+    try {
+      Some(ImageIO.read(new URL(media_url)))
+    } catch {
+      case _:java.io.IOException => None
+    } 
 
-  def getImage : BufferedImage = {
+  def getImage : Option[BufferedImage] = {
     _imagedata
   }
 
   // Given a basename, this method downloads (as needed)
   // and saves the image data in an appropriately-named file.
   def saveImageFile(basename: String) : File = {
-    content_type match {
-      case ImageGIF =>
-        val outputfile = new File(basename + ".gif")
-        ImageIO.write(_imagedata, "gif", outputfile)
-        outputfile
-      case ImageJPEG =>
-        val outputfile = new File(basename + ".jpg")
-        ImageIO.write(_imagedata, "jpg", outputfile)
-        outputfile
-      case ImagePNG =>
-        val outputfile = new File(basename + ".png")
-        ImageIO.write(_imagedata, "png", outputfile)
-        outputfile
+    _imagedata match {
+      case Some(imagedata) =>
+        content_type match {
+          case ImageGIF =>
+            val outputfile = new File(basename + ".gif")
+            ImageIO.write(imagedata, "gif", outputfile)
+            outputfile
+          case ImageJPEG =>
+            val outputfile = new File(basename + ".jpg")
+            ImageIO.write(imagedata, "jpg", outputfile)
+            outputfile
+          case ImagePNG =>
+            val outputfile = new File(basename + ".png")
+            ImageIO.write(imagedata, "png", outputfile)
+            outputfile
+        }
+      case None => throw new java.io.IOException("Image could not be retrieved.")
     }
   }
 }
